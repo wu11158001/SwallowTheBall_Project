@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linker>
+  <assembly fullname="mscorlib">
+    <type fullname="System.Collections.Generic.Dictionary`2">
+      <method name="Add" />
+      <method name="Remove" />
+      <method name="ContainsKey" />
+    </type>
+  </assembly>
+  <assembly fullname="UnityEngine.ResourceManagement">
+    <type fullname="UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1">
+      <method name="get_Result" />
+    </type>
+  </assembly>
+</linker>

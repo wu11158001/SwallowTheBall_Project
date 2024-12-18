@@ -1,0 +1,8 @@
+E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/.utmp/RelWithDebInfo/4a3f95b6/arm64-v8a/CMakeFiles/edit_cache.dir
+E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/.utmp/RelWithDebInfo/4a3f95b6/arm64-v8a/CMakeFiles/rebuild_cache.dir
+E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/.utmp/RelWithDebInfo/4a3f95b6/arm64-v8a/GameActivity/CMakeFiles/game.dir
+E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/.utmp/RelWithDebInfo/4a3f95b6/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/.utmp/RelWithDebInfo/4a3f95b6/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
+E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/.utmp/RelWithDebInfo/4a3f95b6/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/.utmp/RelWithDebInfo/4a3f95b6/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/.utmp/RelWithDebInfo/4a3f95b6/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
