@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c113e5d95e89e5846b4b7f8d32b1caaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Setting_Btn: {fileID: 8583806429567677781}
 --- !u!222 &2152661059944277056
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -155,7 +156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u8A2D\u5B9A"
+  m_text: Setting
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 55a8849555b4b894ab1d27847cec1fe1, type: 2}
   m_sharedMaterial: {fileID: 1344590931745981423, guid: 55a8849555b4b894ab1d27847cec1fe1, type: 2}

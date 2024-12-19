@@ -9,7 +9,8 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 /// </summary>
 public enum ViewEnum
 {
-    LobbyView,
+    LobbyView,                      // 大廳
+    SettingView                     // 設定
 }
 
 public class ViewMgr : UnitySingleton<ViewMgr>
@@ -33,6 +34,8 @@ public class ViewMgr : UnitySingleton<ViewMgr>
         _mainCamera = Camera.main;
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         _canvasRt = _canvas.GetComponent<RectTransform>();
+
+        _cachedView.Clear();
     }
 
     /// <summary>
@@ -63,11 +66,14 @@ public class ViewMgr : UnitySingleton<ViewMgr>
     }
 
     /// <summary>
-    /// 初始化View
+    /// 產生介面處理
     /// </summary>
+    /// <typeparam name="T"></typeparam>
     /// <param name="rt"></param>
-    public void InitView(RectTransform rt)
+    /// <param name="callBack"></param>
+    public void CreateViewHandle<T>(RectTransform rt, UnityAction<T> callBack = null) where T : Component
     {
+        rt.gameObject.SetActive(true);
         rt.offsetMax = Vector2.zero;
         rt.offsetMin = Vector2.zero;
         rt.anchoredPosition = Vector2.zero;
@@ -75,6 +81,19 @@ public class ViewMgr : UnitySingleton<ViewMgr>
         rt.localScale = Vector3.one;
         rt.name = rt.name.Replace("(Clone)", "");
         rt.SetSiblingIndex(_canvasRt.childCount + 1);
+
+        if (callBack != null)
+        {
+            T component = rt.GetComponent<T>();
+            if (component != null)
+            {
+                callBack?.Invoke(component);
+            }
+            else
+            {
+                Debug.LogError($"{rt.name}: 介面不存在 Component");
+            }
+        }
     }
 
     /// <summary>
@@ -85,31 +104,10 @@ public class ViewMgr : UnitySingleton<ViewMgr>
     /// <param name="callBack"></param>
     public void OpenView<T>(ViewEnum viewEnum, UnityAction<T> callBack = null) where T : Component
     {
-        /*
-         * 創建場景處理
-         * */
-        void CreateViewHandle(RectTransform createView)
-        {
-            InitView(createView);
-
-            if (callBack != null)
-            {
-                T component = createView.GetComponent<T>();
-                if (component != null)
-                {
-                    callBack?.Invoke(component);
-                }
-                else
-                {
-                    Debug.LogError($"{viewEnum}: 介面不存在 Component");
-                }
-            }
-        }
-        Debug.Log("創建介面");
         if (_cachedView.ContainsKey(viewEnum))
         {
-            RectTransform rt = Instantiate(_cachedView[viewEnum], _canvasRt).GetComponent<RectTransform>();
-            CreateViewHandle(rt);
+            RectTransform rt = _cachedView[viewEnum];
+            CreateViewHandle(rt, callBack);
         }
         else
         {
@@ -118,7 +116,7 @@ public class ViewMgr : UnitySingleton<ViewMgr>
                 if (handle.Result != null)
                 {
                     RectTransform rt = Instantiate(handle.Result, _canvasRt).GetComponent<RectTransform>();
-                    CreateViewHandle(rt);
+                    CreateViewHandle(rt, callBack);
 
                     _cachedView.Add(viewEnum, rt);
                     Addressables.Release(handle);
