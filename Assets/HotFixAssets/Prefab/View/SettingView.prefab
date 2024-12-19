@@ -1100,8 +1100,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7508974466424793604}
   - {fileID: 561716138695641725}
+  - {fileID: 7508974466424793604}
   m_Father: {fileID: 820449788506517664}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -1235,6 +1235,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mask_Btn: {fileID: 3449665343822072840}
   SlideView: {fileID: 218709269198100164}
+  zhTw_Tog: {fileID: 4818279320771312638}
+  en_Tog: {fileID: 8723722980860206507}
 --- !u!1 &8925123471115024652
 GameObject:
   m_ObjectHideFlags: 0

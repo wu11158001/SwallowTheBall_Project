@@ -1,16 +1,25 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using System;
 
 /// <summary>
-/// 介面Enum
+/// 一般介面Enum
 /// </summary>
 public enum ViewEnum
 {
     LobbyView,                      // 大廳
     SettingView                     // 設定
+}
+
+/// <summary>
+/// 常駐介面Enum
+/// </summary>
+public enum PermanentViewEnum
+{
+    SceneLoadView,                  // 場景轉換介面
 }
 
 public class ViewMgr : UnitySingleton<ViewMgr>
@@ -19,11 +28,35 @@ public class ViewMgr : UnitySingleton<ViewMgr>
     private Canvas _canvas;
     private RectTransform _canvasRt;
 
-    private Dictionary<ViewEnum, RectTransform> _cachedView = new();
+    private Dictionary<ViewEnum, RectTransform> _normalView = new();                    // 一般介面
+    private Dictionary<PermanentViewEnum, RectTransform> _permanentView = new();        // 功能介面
 
     public override void Awake()
     {
         base.Awake();
+    }
+
+    /// <summary>
+    /// 介面腳本準備
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator IPrepare()
+    {
+        _permanentView.Clear();
+
+        foreach (var permanentEnum in Enum.GetValues(typeof(PermanentViewEnum)))
+        {
+            var handle = Addressables.LoadAssetAsync<GameObject>($"Prefab/View/{permanentEnum}.prefab");
+
+            yield return handle;
+
+            RectTransform rt = handle.Result.GetComponent<RectTransform>();
+
+            _permanentView.Add((PermanentViewEnum)permanentEnum, rt);
+            Addressables.Release(handle);
+        }
+
+        Debug.Log("介面腳本準備完成。");
     }
 
     /// <summary>
@@ -35,7 +68,7 @@ public class ViewMgr : UnitySingleton<ViewMgr>
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         _canvasRt = _canvas.GetComponent<RectTransform>();
 
-        _cachedView.Clear();
+        _normalView.Clear();
     }
 
     /// <summary>
@@ -63,6 +96,18 @@ public class ViewMgr : UnitySingleton<ViewMgr>
     public RectTransform GetCanvasRectTransform()
     {
         return _canvasRt;
+    }
+
+    /// <summary>
+    /// 開啟場景轉換介面
+    /// </summary>
+    public RectTransform OpenSceneLoadView()
+    {
+        RectTransform sceneLoadView = _permanentView[PermanentViewEnum.SceneLoadView];
+        RectTransform rt = Instantiate(sceneLoadView, _canvasRt).GetComponent<RectTransform>();
+        CreateViewHandle<RectTransform>(rt);
+
+        return rt;
     }
 
     /// <summary>
@@ -104,9 +149,9 @@ public class ViewMgr : UnitySingleton<ViewMgr>
     /// <param name="callBack"></param>
     public void OpenView<T>(ViewEnum viewEnum, UnityAction<T> callBack = null) where T : Component
     {
-        if (_cachedView.ContainsKey(viewEnum))
+        if (_normalView.ContainsKey(viewEnum))
         {
-            RectTransform rt = _cachedView[viewEnum];
+            RectTransform rt = _normalView[viewEnum];
             CreateViewHandle(rt, callBack);
         }
         else
@@ -118,7 +163,7 @@ public class ViewMgr : UnitySingleton<ViewMgr>
                     RectTransform rt = Instantiate(handle.Result, _canvasRt).GetComponent<RectTransform>();
                     CreateViewHandle(rt, callBack);
 
-                    _cachedView.Add(viewEnum, rt);
+                    _normalView.Add(viewEnum, rt);
                     Addressables.Release(handle);
                 }
                 else

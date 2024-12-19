@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -16,6 +17,8 @@ public enum SceneEnum
 
 public class SceneMgr : UnitySingleton<SceneMgr>
 {
+    private RectTransform _sceneLoadView;
+
     public override void Awake()
     {
         base.Awake();
@@ -34,13 +37,14 @@ public class SceneMgr : UnitySingleton<SceneMgr>
                 Debug.Log($"進入場景:{sceneEnum} !");
 
                 ViewMgr.I.Init();
+                _sceneLoadView = ViewMgr.I.OpenSceneLoadView();
 
                 // 產生場景初始介面
                 switch (sceneEnum)
                 {
                     // 大廳
                     case SceneEnum.Lobby:
-                        ViewMgr.I.OpenView<RectTransform>(ViewEnum.LobbyView);
+                        ViewMgr.I.OpenView<RectTransform>(ViewEnum.LobbyView, CloseSceneLoadView);
                         break;
                 }
             }
@@ -49,5 +53,17 @@ public class SceneMgr : UnitySingleton<SceneMgr>
                 Debug.LogError($"{sceneEnum} 場景載入失敗 ！");
             }
         };
+    }
+
+    /// <summary>
+    /// 關閉場景轉換介面
+    /// </summary>
+    /// <param name="openView"></param>
+    public void CloseSceneLoadView(RectTransform openView)
+    {
+        if (_sceneLoadView != null)
+        {
+            Destroy(_sceneLoadView.gameObject);
+        }
     }
 }
