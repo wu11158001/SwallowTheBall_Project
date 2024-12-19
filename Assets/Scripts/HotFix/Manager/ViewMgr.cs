@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.AddressableAssets;
 using System;
+using TMPro;
 
 /// <summary>
 /// 一般介面Enum
@@ -29,7 +30,9 @@ public class ViewMgr : UnitySingleton<ViewMgr>
     private RectTransform _canvasRt;
 
     private Dictionary<ViewEnum, RectTransform> _normalView = new();                    // 一般介面
-    private Dictionary<PermanentViewEnum, RectTransform> _permanentView = new();        // 功能介面
+    private Dictionary<PermanentViewEnum, RectTransform> _permanentView = new();        // 常駐介面
+
+    private TMP_FontAsset _font;
 
     public override void Awake()
     {
@@ -42,21 +45,43 @@ public class ViewMgr : UnitySingleton<ViewMgr>
     /// <returns></returns>
     public IEnumerator IPrepare()
     {
+        // 常駐介面
         _permanentView.Clear();
-
         foreach (var permanentEnum in Enum.GetValues(typeof(PermanentViewEnum)))
         {
-            var handle = Addressables.LoadAssetAsync<GameObject>($"Prefab/View/{permanentEnum}.prefab");
+            var permanentHandle = Addressables.LoadAssetAsync<GameObject>($"Prefab/View/{permanentEnum}.prefab");
 
-            yield return handle;
+            yield return permanentHandle;
 
-            RectTransform rt = handle.Result.GetComponent<RectTransform>();
-
-            _permanentView.Add((PermanentViewEnum)permanentEnum, rt);
-            Addressables.Release(handle);
+            if (permanentHandle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+            {
+                RectTransform rt = permanentHandle.Result.GetComponent<RectTransform>();
+                _permanentView.Add((PermanentViewEnum)permanentEnum, rt);
+            }
+            else
+            {
+                Debug.LogError($"加載 {permanentEnum} 失敗 !");
+            }
         }
 
+        // 字體
+        var fontHandle = Addressables.LoadAssetAsync<TMP_FontAsset>("Assets/HotFixAssets/TmpFont/思源宋體-Medium.asset");
+        yield return fontHandle;
+        _font = fontHandle.Result;
+
         Debug.Log("介面腳本準備完成。");
+    }
+
+    /// <summary>
+    /// 開啟場景轉換介面
+    /// </summary>
+    public RectTransform OpenSceneLoadView()
+    {
+        RectTransform sceneLoadView = _permanentView[PermanentViewEnum.SceneLoadView];
+        RectTransform rt = Instantiate(sceneLoadView, _canvasRt).GetComponent<RectTransform>();
+        CreateViewHandle<RectTransform>(rt);
+
+        return rt;
     }
 
     /// <summary>
@@ -99,18 +124,6 @@ public class ViewMgr : UnitySingleton<ViewMgr>
     }
 
     /// <summary>
-    /// 開啟場景轉換介面
-    /// </summary>
-    public RectTransform OpenSceneLoadView()
-    {
-        RectTransform sceneLoadView = _permanentView[PermanentViewEnum.SceneLoadView];
-        RectTransform rt = Instantiate(sceneLoadView, _canvasRt).GetComponent<RectTransform>();
-        CreateViewHandle<RectTransform>(rt);
-
-        return rt;
-    }
-
-    /// <summary>
     /// 產生介面處理
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -127,6 +140,14 @@ public class ViewMgr : UnitySingleton<ViewMgr>
         rt.name = rt.name.Replace("(Clone)", "");
         rt.SetSiblingIndex(_canvasRt.childCount + 1);
 
+        // 字體
+        TextMeshProUGUI[] texts = rt.GetComponentsInChildren<TextMeshProUGUI>(true);
+        foreach (var text in texts)
+        {
+            text.font = _font;
+        }
+
+        // 獲取Component
         if (callBack != null)
         {
             T component = rt.GetComponent<T>();

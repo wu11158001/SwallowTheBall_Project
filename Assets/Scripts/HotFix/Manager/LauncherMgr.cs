@@ -8,6 +8,11 @@ public class LauncherMgr : UnitySingleton<LauncherMgr>
         base.Awake();
     }
 
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     /// <summary>
     /// 遊戲啟動
     /// </summary>
@@ -25,8 +30,8 @@ public class LauncherMgr : UnitySingleton<LauncherMgr>
     private IEnumerator IProjectInit()
     {
         yield return ViewMgr.I.IPrepare();
+        yield return LanguageMgr.I.Init();
 
-        LanguageMgr.I.Init();
         SceneMgr.I.ChangeScene(SceneEnum.Lobby);
     }
 }

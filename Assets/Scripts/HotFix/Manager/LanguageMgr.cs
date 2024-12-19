@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Collections;
 
 public class LanguageMgr : UnitySingleton<LanguageMgr>
 {
@@ -11,6 +13,14 @@ public class LanguageMgr : UnitySingleton<LanguageMgr>
 
     public int CurrLanguage { get; private set; }                       // 當前語言
 
+    /// <summary>
+    /// 語言配置表
+    /// </summary>
+    private string[] LocalizationTable = new string[]
+    {
+        "Localization Table",
+    };
+
     public override void Awake()
     {
         base.Awake();
@@ -19,8 +29,21 @@ public class LanguageMgr : UnitySingleton<LanguageMgr>
     /// <summary>
     /// 初始化
     /// </summary>
-    public void Init()
+    public IEnumerator Init()
     {
+        foreach (var table in LocalizationTable)
+        {
+            var loadingOperation = LocalizationSettings.StringDatabase.GetTableAsync(table);
+            yield return loadingOperation;
+
+            if (loadingOperation.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"載入語言配置表錯誤: {table}");
+            }
+        }
+
+        Debug.Log("語言腳本準備完成。");
+
         int localLanguage = PlayerPrefs.GetInt(SWALLOW_LANGUAGE);
         ChangeLanguage(localLanguage);
     }
@@ -31,8 +54,30 @@ public class LanguageMgr : UnitySingleton<LanguageMgr>
     /// <param name="index"></param>
     public void ChangeLanguage(int index)
     {
+        AsyncOperationHandle handle = LocalizationSettings.SelectedLocaleAsync;
+        if (handle.IsDone)
+        {
+            SetLanguage(index);
+        }
+        else
+        {
+            handle.Completed += (OperationHandle) =>
+            {
+                SetLanguage(index);
+            };
+        }
+    }
+
+    /// <summary>
+    /// 設置語言
+    /// </summary>
+    /// <param name="index"></param>
+    private void SetLanguage(int index)
+    {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
         PlayerPrefs.SetInt(SWALLOW_LANGUAGE, index);
         CurrLanguage = index;
+
+        Debug.Log($"當前語言: {index}");
     }
 }

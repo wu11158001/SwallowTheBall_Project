@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: English
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 55a8849555b4b894ab1d27847cec1fe1, type: 2}
-  m_sharedMaterial: {fileID: 1344590931745981423, guid: 55a8849555b4b894ab1d27847cec1fe1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -696,8 +696,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Language
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 55a8849555b4b894ab1d27847cec1fe1, type: 2}
-  m_sharedMaterial: {fileID: 1344590931745981423, guid: 55a8849555b4b894ab1d27847cec1fe1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1235,8 +1235,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mask_Btn: {fileID: 3449665343822072840}
   SlideView: {fileID: 218709269198100164}
-  zhTw_Tog: {fileID: 4818279320771312638}
   en_Tog: {fileID: 8723722980860206507}
+  zhTw_Tog: {fileID: 4818279320771312638}
 --- !u!1 &8925123471115024652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,8 +1305,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Setting
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 55a8849555b4b894ab1d27847cec1fe1, type: 2}
-  m_sharedMaterial: {fileID: 1344590931745981423, guid: 55a8849555b4b894ab1d27847cec1fe1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

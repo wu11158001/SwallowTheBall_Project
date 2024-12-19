@@ -1,12 +1,12 @@
 # ninja log v5
-1	1916	7562353719742900	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	66fab708f52d1533
-238	1918	7562353724950434	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	614f8c22def29831
-450	1918	7562353722104308	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	78c62e7dde608fbf
-654	1919	7562353724377866	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	a49ce515dc6c7583
-1068	1930	7562353728885315	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	3563a93e76f255c9
-1692	2011	7562353729765197	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	34102d9c4bd6bcb0
-851	2075	7562353730368079	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	a6657e2363e51d9e
-1281	2131	7562353730934258	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	46f2a4491c1ede1f
-1487	2390	7562353733471067	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	2e83c592a7a98d38
-2011	2413	7562353733826139	E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4a3f95b6/obj/arm64-v8a/libswappywrapper.so	891b38d051d72dd7
-2390	2922	7562353738874987	E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4a3f95b6/obj/arm64-v8a/libgame.so	8e1692442958f737
+0	1848	7563501149472340	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	66fab708f52d1533
+202	1850	7563501152685206	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	614f8c22def29831
+402	1850	7563501149809546	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	78c62e7dde608fbf
+625	1851	7563501151818855	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	a49ce515dc6c7583
+820	1851	7563501156606257	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	a6657e2363e51d9e
+1018	1852	7563501155895581	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	3563a93e76f255c9
+1222	2008	7563501158245680	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	46f2a4491c1ede1f
+1639	2180	7563501159964811	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	34102d9c4bd6bcb0
+1434	2302	7563501161231026	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	2e83c592a7a98d38
+2180	2636	7563501164615268	E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4a3f95b6/obj/arm64-v8a/libswappywrapper.so	891b38d051d72dd7
+2302	2709	7563501165304856	E:/MyUnityProject/Swallow The Ball File/Swallow The Ball/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4a3f95b6/obj/arm64-v8a/libgame.so	8e1692442958f737
