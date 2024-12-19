@@ -18,7 +18,7 @@ public class ViewMgr : UnitySingleton<ViewMgr>
     private Canvas _canvas;
     private RectTransform _canvasRt;
 
-    private Dictionary<ViewEnum, GameObject> _cachedView = new();
+    private Dictionary<ViewEnum, RectTransform> _cachedView = new();
 
     public override void Awake()
     {
@@ -113,21 +113,19 @@ public class ViewMgr : UnitySingleton<ViewMgr>
         }
         else
         {
-            Addressables.InstantiateAsync($"Prefab/View/{viewEnum}.prefab", _canvasRt).Completed += (handle) =>
+            Addressables.LoadAssetAsync<GameObject>($"Prefab/View/{viewEnum}.prefab").Completed += (handle) =>
             {
                 if (handle.Result != null)
                 {
-                    RectTransform rt = handle.Result.GetComponent<RectTransform>();
+                    RectTransform rt = Instantiate(handle.Result, _canvasRt).GetComponent<RectTransform>();
                     CreateViewHandle(rt);
 
-                    GameObject obj = handle.Result;
-                    _cachedView.Add(viewEnum, obj);
-
+                    _cachedView.Add(viewEnum, rt);
                     Addressables.Release(handle);
                 }
                 else
                 {
-                    Debug.LogError("$無法加載介面:{viewEnum}");
+                    Debug.LogError($"無法加載介面:{viewEnum}");
                 }
             };
         }
